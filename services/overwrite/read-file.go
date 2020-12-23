@@ -6,9 +6,9 @@ import (
 	"os"
 )
 
-func OverwriteData() string{
+func ReadData(path string) string{
 	//прочитать данные и записать все в строку
-	file, err :=os.Open("hello.txt")
+	file, err :=os.Open(path)
 	if err!=nil{
 		fmt.Println(err)
 		os.Exit(1)

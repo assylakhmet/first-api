@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func OverWriteData(c *gin.Context){
-	var clientJson = OverwriteData()
+func OverwriteData(c *gin.Context){
+	var clientJson = ReadData("hello.txt")
 	InsertToDatabase(clientJson)
 	fmt.Fprintf(c.Writer, "Done!")
 	fmt.Println("OverWritingData")

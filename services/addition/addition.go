@@ -1,16 +1,18 @@
 package addition
 
 import (
-	m "fApi/models"
 	"encoding/json"
-	"fApi/configuration"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"src/configuration"
+	m "src/models"
+	s "src/services"
 	"strconv"
 )
 
 func GetClient(c *gin.Context){
 	c.Writer.Header().Set("Content-Type", "application/json")
+	s.GetDataFromDataBase()
 	for _, item := range m.Clients {
 		if strconv.Itoa(item.ClientId) ==  c.Params.ByName("id") {
 			json.NewEncoder(c.Writer).Encode(item)
@@ -27,7 +29,7 @@ func Truncate(c *gin.Context){
 		fmt.Println(err.Error())
 	}
 	db.Query("truncate clients")
-	m. Clients=nil
+	m.Clients=nil
 	fmt.Fprintf(c.Writer,"Done!")
 	fmt.Println("truncate done;")
 }

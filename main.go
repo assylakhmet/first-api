@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fApi/services"
-	"fApi/services/addition"
-	"fApi/services/overwrite"
+	"src/services"
+	"src/services/addition"
+	"src/services/overwrite"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -19,12 +19,12 @@ func main(){
 func handleRequest(){
 	r := gin.New()
 	r.GET("/", index)
-	r.GET("/overwrite", overwrite.OverWriteData)
-	r.GET("/clients", services.GetDataFromDataBase)
+	r.GET("/overwrite", overwrite.OverwriteData)
+	r.GET("/clients", services.GetAllClients)
 	r.GET("/clients/id/:id", addition.GetClient)
 	r.GET("/truncate", addition.Truncate)
 	r.GET("/new-file/:n", addition.New)
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":10010", r)
 }
 
 func index(c *gin.Context){
