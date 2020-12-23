@@ -6,7 +6,7 @@ import (
 	m "fApi/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"src/configuration"
+	"first-api/configuration"
 )
 
 func GetDataFromDataBase(){

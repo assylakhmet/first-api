@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	m "fApi/models"
 	"fmt"
-	"src/configuration"
+	"first-api/configuration"
 )
 
 

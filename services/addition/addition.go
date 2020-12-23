@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"src/configuration"
-	m "src/models"
-	s "src/services"
+	"first-api/configuration"
+	m "first-api/models"
+	s "first-api/services"
 	"strconv"
 )
 

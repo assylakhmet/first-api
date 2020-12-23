@@ -1,9 +1,9 @@
 package main
 
 import (
-	"src/services"
-	"src/services/addition"
-	"src/services/overwrite"
+	"first-api/services"
+	"first-api/services/addition"
+	"first-api/services/overwrite"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
