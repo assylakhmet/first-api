@@ -1,4 +1,4 @@
-package addition
+package services
 
 import (
 	"fmt"

@@ -1,11 +1,46 @@
 package configuration
 
-import "database/sql"
+import (
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"os"
+)
 
-func SqlConfig() (*sql.DB, error) {
+type Configuration struct{
+	DbUser string
+	DbPass string
+	DbName string
+}
 
-	connStr := "user=postgres password=12345 dbname=testdb sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+func  SqlConfig(config *Configuration) (*sql.DB, error) {
 
-	return db, err
+	db, err := sql.Open("postgres", fmt.Sprintf(
+		"user=%s dbname=%s sslmode=disable password=%s",
+		config.DbUser, config.DbName, config.DbPass))
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+
+func (c *Configuration) ReadFile(path string) {
+	file, err := os.Open(path)
+	if err != nil {
+		panic(err)
+	}
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&c)
+	if err != nil {
+		panic(err)
+	}
+}
+
+//NewConfiguration read file, return configuration
+func NewConfiguration(path string) *Configuration {
+	var configuration Configuration
+	configuration.ReadFile(path)
+
+	return &configuration
 }

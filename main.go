@@ -1,10 +1,10 @@
 package main
 
 import (
+	"first-api/configuration"
 	"first-api/services"
-	"first-api/services/addition"
-	"first-api/services/overwrite"
 	"fmt"
+	logger "git.homebank.kz/HomeBank/elastic-logger.v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
 
@@ -13,17 +13,19 @@ import (
 
 
 func main(){
-	handleRequest()
-}
 
-func handleRequest(){
+	_cfg := configuration.NewConfiguration("config.json")
+	_log := logger.NewLogger("")
+	_handler := services.NewHandler(_cfg, _log)
+
+
 	r := gin.New()
 	r.GET("/", index)
-	r.GET("/overwrite", overwrite.OverwriteData)
-	r.GET("/clients", services.GetAllClients)
-	r.GET("/clients/id/:id", addition.GetClient)
-	r.GET("/truncate", addition.Truncate)
-	r.GET("/new-file/:n", addition.New)
+	r.GET("/overwrite",  _handler.OverwriteData)
+	r.GET("/clients", _handler.GetAllClients)
+	r.GET("/clients/id/:id", _handler.GetClient)
+	r.GET("/truncate", _handler.Truncate)
+	r.GET("/new-file/:n", services.New)
 	http.ListenAndServe(":10010", r)
 }
 

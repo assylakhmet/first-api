@@ -1,0 +1,5 @@
+{
+  "DbUser": "postgres",
+  "DbPass": "12345",
+  "DbName": "testdb"
+}

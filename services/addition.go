@@ -1,18 +1,17 @@
-package addition
+package services
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"first-api/configuration"
 	m "first-api/models"
-	s "first-api/services"
+	"fmt"
+	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
-func GetClient(c *gin.Context){
+func (handler *Handler) GetClient(c *gin.Context){
 	c.Writer.Header().Set("Content-Type", "application/json")
-	s.GetDataFromDataBase()
+	GetDataFromDataBase(handler)
 	for _, item := range m.Clients {
 		if strconv.Itoa(item.ClientId) ==  c.Params.ByName("id") {
 			json.NewEncoder(c.Writer).Encode(item)
@@ -23,8 +22,8 @@ func GetClient(c *gin.Context){
 }
 
 
-func Truncate(c *gin.Context){
-	db, err := configuration.SqlConfig()
+func (handler *Handler) Truncate(c *gin.Context){
+	db, err := configuration.SqlConfig(handler.Config)
 	if err != nil{
 		fmt.Println(err.Error())
 	}

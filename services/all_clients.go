@@ -9,12 +9,12 @@ import (
 	"first-api/configuration"
 )
 
-func GetDataFromDataBase(){
+func  GetDataFromDataBase(handler *Handler){
 
 	if m.Clients != nil{
 		m.Clients=nil
 	}
-	db, _ := configuration.SqlConfig()
+	db, _ := configuration.SqlConfig(handler.Config)
 	rows, _ := db.Query("select * from Clients")
 	for rows.Next() {
 		c := m.Client{}
@@ -27,9 +27,9 @@ func GetDataFromDataBase(){
 	}
 }
 
-func GetAllClients(c *gin.Context){
+func (handler *Handler) GetAllClients(c *gin.Context){
 
-	GetDataFromDataBase()
+	GetDataFromDataBase(handler)
 	json.NewEncoder(c.Writer).Encode(m.Clients)
 }
 
